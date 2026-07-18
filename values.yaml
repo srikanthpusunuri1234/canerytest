@@ -2,12 +2,12 @@ namespace: test
 replicaCount: 2
 
 image:
-  repository: psrikanth057/amazon
+  repository: psrikanth057/vote
   tag: latest
 
 securityContext:
-  runAsNonRoot: true
-  runAsUser: 1000
+  runAsNonRoot: false
+  runAsUser: 0
 
 service:
   port: 8080

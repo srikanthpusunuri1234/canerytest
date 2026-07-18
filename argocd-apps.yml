@@ -11,50 +11,7 @@ spec:
     path: . # Points to the exact same engine
     helm:
       releaseName: frontend-service
-      values: |
-        namespace: test
-        replicaCount: 2
-        ingressName: yanx-ingress
-        host: sri.local
-        httpPath: /                     # Routes root traffic to the frontend
-        image:
-          repository: psrikanth057/amazon
-          tag: latest                 # Change this to trigger frontend rollouts
-        
-        securityContext:
-          runAsNonRoot: false
-          runAsUser: 0                # Your nginx-unprivileged user
-          
-        service:
-          port: 8080                     # Service listens on 80
-          targetPort: 80            # Container listens on 8080
-          
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "50m"
-          limits:
-            memory: "128Mi"
-            cpu: "200m"
-            
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 10
-          
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 2
-          periodSeconds: 5
-        canary:
-          initialWeight: 20
-          initialPause: 1m
-          secondWeight: 50
-          secondPause: 1m
+      
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: test
