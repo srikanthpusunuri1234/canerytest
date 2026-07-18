@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: 'https://github.com/srikanthpusunuri1234/canerytest.git'
     targetRevision: HEAD
-    path: charts/istio-rollout # Points to the exact same engine
+    path: . # Points to the exact same engine
     helm:
       releaseName: frontend-service
       values: |
