@@ -2,8 +2,8 @@ namespace: test
 replicaCount: 2
 
 image:
-  repository: ""
-  tag: ""
+  repository: psrikanth057/amazon
+  tag: latest
 
 securityContext:
   runAsNonRoot: true
