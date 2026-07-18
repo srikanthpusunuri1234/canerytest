@@ -1,0 +1,42 @@
+namespace: test
+replicaCount: 2
+
+image:
+  repository: ""
+  tag: ""
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+
+service:
+  port: 8080
+  targetPort: 8080
+
+# Keep blank by default; only gets applied if provided in application values
+envFromSecret: ""
+
+host: "sri.local"
+gateways:
+  - istio-system/my-gateway
+
+# Prefix match matching the HTTP path (e.g., /api, /auth, /)
+httpPath: /
+
+resources:
+  requests:
+    memory: "64Mi"
+    cpu: "50m"
+  limits:
+    memory: "128Mi"
+    cpu: "200m"
+
+livenessProbe: {}
+readinessProbe: {}
+
+# Split criteria for canary rollout
+canary:
+  initialWeight: 20
+  initialPause: 1m
+  secondWeight: 50
+  secondPause: 1m

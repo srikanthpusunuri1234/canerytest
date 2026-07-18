@@ -1,0 +1,58 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: frontend
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/srikanthpusunuri1234/canerytest.git'
+    targetRevision: HEAD
+    path: charts/istio-rollout # Points to the exact same engine
+    helm:
+      releaseName: frontend-service
+      values: |
+        replicaCount: 1
+        host: sri.local
+        httpPath: /                     # Routes root traffic to the frontend
+        
+        image:
+          repository: psrikanth057/vote
+          tag: latest                 # Change this to trigger frontend rollouts
+        
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 101                # Your nginx-unprivileged user
+          
+        service:
+          port: 80                      # Service listens on 80
+          targetPort: 8080              # Container listens on 8080
+          
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
+            
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 2
+          periodSeconds: 5
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: test
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
