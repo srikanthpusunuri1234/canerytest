@@ -13,7 +13,7 @@ spec:
   tls:
   - hosts:
     - sri.local  # Updated to your domain
-    secretName: keycloak-tls-secret # Ensure this secret holds the cert for sri.local
+    secretName: argocd-tls # Ensure this secret holds the cert for sri.local
   rules:
   - host: sri.local # Updated to your domain
     http:

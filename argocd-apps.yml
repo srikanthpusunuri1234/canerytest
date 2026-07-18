@@ -18,7 +18,7 @@ spec:
         host: sri.local
         httpPath: /                     # Routes root traffic to the frontend
         image:
-          repository: psrikanth057/vote
+          repository: psrikanth057/amazon
           tag: latest                 # Change this to trigger frontend rollouts
         
         securityContext:
