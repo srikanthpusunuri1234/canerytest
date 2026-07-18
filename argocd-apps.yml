@@ -17,18 +17,17 @@ spec:
         ingressName: yanx-ingress
         host: sri.local
         httpPath: /                     # Routes root traffic to the frontend
-        ingressName: yanx-ingress
         image:
           repository: psrikanth057/vote
           tag: latest                 # Change this to trigger frontend rollouts
         
         securityContext:
-          runAsNonRoot: true
-          runAsUser: 101                # Your nginx-unprivileged user
+          runAsNonRoot: false
+          runAsUser: 0                # Your nginx-unprivileged user
           
         service:
           port: 8080                     # Service listens on 80
-          targetPort: 8080              # Container listens on 8080
+          targetPort: 80            # Container listens on 8080
           
         resources:
           requests:
@@ -41,14 +40,14 @@ spec:
         livenessProbe:
           httpGet:
             path: /
-            port: 8080
+            port: 80
           initialDelaySeconds: 5
           periodSeconds: 10
           
         readinessProbe:
           httpGet:
             path: /
-            port: 8080
+            port: 80
           initialDelaySeconds: 2
           periodSeconds: 5
         canary:
