@@ -3,15 +3,11 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}-stable
   namespace: {{ .Values.namespace }}
-  labels:
-    app: {{ .Release.Name }}
 spec:
   type: ClusterIP
   ports:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.targetPort }}
-      protocol: TCP
-      name: http
   selector:
     app: {{ .Release.Name }}
 ---
@@ -20,14 +16,10 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}-canary
   namespace: {{ .Values.namespace }}
-  labels:
-    app: {{ .Release.Name }}
 spec:
   type: ClusterIP
   ports:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.targetPort }}
-      protocol: TCP
-      name: http
   selector:
     app: {{ .Release.Name }}

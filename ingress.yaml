@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: yanx-ingress
+  namespace: test
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "86400"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "86400"
+    # Required for NGINX to process Canary annotations properly
+    nginx.ingress.kubernetes.io/enable-cors: "true" 
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - sri.local  # Updated to your domain
+    secretName: keycloak-tls-secret # Ensure this secret holds the cert for sri.local
+  rules:
+  - host: sri.local # Updated to your domain
+    http:
+      paths:
+      # Keycloak (Assuming this is NOT using Argo Rollouts)
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            # MUST POINT TO THE -stable SERVICE
+            name: frontend-service-stable 
+            port:
+              number: 80
