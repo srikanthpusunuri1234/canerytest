@@ -2,7 +2,7 @@ namespace: test
 replicaCount: 2
 
 image:
-  repository: psrikanth057/vote
+  repository: psrikanth057/amazon
   tag: latest
 
 securityContext:
