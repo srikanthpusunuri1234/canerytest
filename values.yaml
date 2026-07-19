@@ -3,7 +3,7 @@ replicaCount: 2
 ingressName: yanx-ingress
 
 image:
-  repository: netflixclone
+  repository: amazon
   tag: latest
 
 securityContext:
@@ -12,7 +12,7 @@ securityContext:
 
 service:
   port: 8080
-  targetPort: 80
+  targetPort: 8080
 
 # Keep blank by default; only gets applied if provided in application values
 envFromSecret: ""

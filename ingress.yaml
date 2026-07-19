@@ -8,6 +8,11 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-send-timeout: "86400"
     # Required for NGINX to process Canary annotations properly
     nginx.ingress.kubernetes.io/enable-cors: "true" 
+    # sticky session
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/session-cookie-name: "route"
+    nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
+    nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
 spec:
   ingressClassName: nginx
   tls:
