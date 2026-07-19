@@ -12,7 +12,7 @@ securityContext:
 
 service:
   port: 8080
-  targetPort: 8080
+  targetPort: 80
 
 # Keep blank by default; only gets applied if provided in application values
 envFromSecret: ""
