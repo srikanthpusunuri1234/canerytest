@@ -3,7 +3,7 @@ replicaCount: 2
 ingressName: yanx-ingress
 
 image:
-  repository: psrikanth057/amazon
+  repository: netflixclone
   tag: latest
 
 securityContext:
